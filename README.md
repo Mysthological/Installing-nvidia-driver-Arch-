@@ -10,6 +10,7 @@ After finishing base arch installation now we can just start installing nvidia d
 ## Important links
 -[Arch Linux Homepage](https://archlinux.org/ "Arch Linux Homepage")
 -[nvidia-all](https://github.com/Frogging-Family/nvidia-all)
+-[More about drm-kms](https://www.kernel.org/doc/html/v4.15/gpu/drm-kms.html)
 
 ## Step 1: Install required packages and enable multilib
   
@@ -36,14 +37,8 @@ makepkg -si
 
 ## DKMS or regular?
 DKMS is recommended as it allows for automatic module rebuilding on kernel updates.So just relax and choose the latest nvidia driver(dkms).
-
-## Enable DRM Kernel Mode Setting.
-  1.Edit /etc/mkinitcpio.conf and add nvidia modules:
-  `MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)`
-  2.Rebuild the initramfs:
-  `sudo mkinitcpio -P`
   
-### Setting the kernel parameter depends on what bootloader you are using. I'm using grub.
+## Setting the kernel parameter depends on what bootloader you are using. I'm using grub.
   1.Edit the GRUB configuration file:
   ` sudo vim /etc/default/grub `
 
@@ -52,6 +47,30 @@ DKMS is recommended as it allows for automatic module rebuilding on kernel updat
     
   3.Update GRUB:
     `sudo grub-mkconfig -o /boot/grub/grub.cfg`
+    
+## Early Loading of NVIDIA Modules:
+
+## Enable DRM Kernel Mode Setting.
+  1.Edit /etc/mkinitcpio.conf and add nvidia modules:
+  `MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)`
+  2.Find the line that says HOOKS=().find the word kms inside the parenthesis and remove it.
+    `HOOKS=(just remove "kms".Nothing else please!)`
+  3.Rebuild the initramfs:
+  `sudo mkinitcpio -P`
+
+## Blacklist the Nouveau driver to use only nvidia as default gpu :
+  1.Edit the file /etc/modprobe.d/blacklist-nouveau.conf:
+   ```
+  blacklist nouveau
+  options nouveau modeset=0
+  ```
+ 2.Update the configuration:
+ ```
+  sudo update-initramfs -u
+  ```
+
+
+
 
 
 
