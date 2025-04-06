@@ -4,7 +4,7 @@ How to install proprietary NVIDIA drivers for Arch Linux.
 ![Arch Linux Logo](https://archlinux.org/static/logos/archlinux-logo-dark-90dpi.ebdee92a15b3.png).
 
 ## Default Prerequisites
-I'm doing this mostly for installing hyprland with nvidia.Cause you've no other choise rn.So you need proprietary NVIDIA drivers for Arch Linux.
+I'm doing this mostly for installing hyprland with nvidia.Cause you've no other Choice rn.So you need proprietary NVIDIA drivers for Arch Linux.
 After finishing base arch installation now we can just start installing nvidia drivers.
 
 ## Important links
@@ -14,7 +14,7 @@ After finishing base arch installation now we can just start installing nvidia d
 
 ## Step 1: Install required packages and enable multilib
   
-  1.open pacman config with vim or nano(your choise)
+  1.open pacman config with vim or nano(your Choice)
     `% vim /etc/pacman.conf`
 
   2.Then look for the line [multilib] and remove the comments from that line, and the line below it.
